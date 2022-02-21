@@ -1,0 +1,86 @@
+/*
+ * Copyright (c) 2022.  Aravind Chowdary (@kamaravichow)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ *
+ */
+
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    if (project.plugins.findPlugin("com.android.library")) {
+        // For Android libraries
+        from android.sourceSets.main.java.srcDirs
+        from android.sourceSets.main.kotlin.srcDirs
+    } else {
+        // For pure Kotlin libraries, in case you have them
+        from sourceSets.main.java.srcDirs
+        from sourceSets.main.kotlin.srcDirs
+    }
+}
+
+artifacts {
+    archives androidSourcesJar
+}
+
+
+group = PUBLISH_GROUP_ID
+version = PUBLISH_VERSION
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId PUBLISH_GROUP_ID
+                artifactId PUBLISH_ARTIFACT_ID
+                version PUBLISH_VERSION
+                if (project.plugins.findPlugin("com.android.library")) {
+                    from components.release
+                } else {
+                    from components.java
+                }
+
+                artifact androidSourcesJar
+
+                pom {
+                    name = PUBLISH_ARTIFACT_ID
+                    description = 'Checks if the user is faking their location - mocklocation '
+                    url = 'https://github.com/kamaravichow/mockcheck-android'
+                    licenses {
+                        license {
+                            name = 'Apache 2.0'
+                            url = 'https://github.com/kamaravichow/commons/blob/main/LICENSE'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'kamaravichow'
+                            name = 'Aravind Chowdary'
+                            email = 'hi@aravi.me'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:github.com/kamaravichow/mockcheck-android.git'
+                        developerConnection = 'scm:git:ssh://github.com/kamaravichow/mockcheck-android.git'
+                        url = 'https://github.com/kamaravichow/mockcheck-android/tree/main'
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    useInMemoryPgpKeys(
+            rootProject.ext["signing.keyId"],
+            rootProject.ext["signing.key"],
+            rootProject.ext["signing.password"],
+    )
+    sign publishing.publications
+}
