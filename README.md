@@ -1,5 +1,7 @@
 # MockCheck
 
+[![Publish](https://github.com/kamaravichow/mockcheck-android/actions/workflows/publish.yml/badge.svg)](https://github.com/kamaravichow/mockcheck-android/actions/workflows/publish.yml)
+
 A lightweight library to check if user is faking their location or using a mocklocation to fool your apps.
 
 ## Dependency
