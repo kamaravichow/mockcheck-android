@@ -18,9 +18,19 @@ class MockCheck(val context: Context) {
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            locationManager.requestLocationUpdates(LocationManager.FUSED_PROVIDER, 2000L, 0f, listener)
+            locationManager.requestLocationUpdates(
+                LocationManager.FUSED_PROVIDER,
+                2000L,
+                0f,
+                listener
+            )
         } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000L, 0f, listener)
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                2000L,
+                0f,
+                listener
+            )
         }
     }
 
@@ -32,8 +42,13 @@ class MockCheck(val context: Context) {
         return isMockLocation
     }
 
+    fun developerOptionsStatus(): Boolean {
+        return DevOpts.developerEnabled(context)
+    }
 
-    internal class locationListener(val isMock: MutableLiveData<Boolean>) : LocationListener {
+
+    internal class locationListener(private val isMock: MutableLiveData<Boolean>) :
+        LocationListener {
         override fun onLocationChanged(location: Location) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 isMock.postValue(location.isMock)
