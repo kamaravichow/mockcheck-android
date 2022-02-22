@@ -5,7 +5,7 @@ plugins {
 
 ext {
     PUBLISH_GROUP_ID = 'io.github.kamaravichow'
-    PUBLISH_VERSION = '0.1.0'
+    PUBLISH_VERSION = '0.2.0'
     PUBLISH_ARTIFACT_ID = 'mockcheck'
 }
 

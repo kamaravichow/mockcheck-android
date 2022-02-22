@@ -1,0 +1,2 @@
+-flattenpackagehierarchy
+-optimizationpasses 5
