@@ -1,5 +1,6 @@
 # MockCheck
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MockCheck-brightgreen.svg?style=flat-square)](https://android-arsenal.com/details/1/8399)
 [![Publish](https://github.com/kamaravichow/mockcheck-android/actions/workflows/publish.yml/badge.svg)](https://github.com/kamaravichow/mockcheck-android/actions/workflows/publish.yml)
 
 A lightweight library to check if user is faking their location or using a mocklocation to fool your apps.
