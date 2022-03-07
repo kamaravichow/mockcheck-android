@@ -8,7 +8,7 @@ A lightweight library to check if user is faking their location or using a mockl
 ## Dependency
 
 ```groovy
-implementation 'io.github.kamaravichow:mockcheck:0.1.0
+implementation 'io.github.kamaravichow:mockcheck:LATEST 👇🏻
 ```
 
 Latest version : [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.kamaravichow/mockcheck/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.kamaravichow/mockcheck)
